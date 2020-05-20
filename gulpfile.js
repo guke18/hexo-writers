@@ -1,20 +1,19 @@
-
-var browserify = require('browserify');
-var gulp = require('gulp');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var gutil = require('gulp-util');
+const browserify = require('browserify')
+const gulp = require('gulp')
+const source = require('vinyl-source-stream')
+const buffer = require('vinyl-buffer')
+const gutil = require('gulp-util')
 // var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
-var reactify = require('reactify');
-var rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps')
+const reactify = require('reactify')
+const rename = require('gulp-rename')
 
-gulp.task('demo', function () {
-  var b = browserify({
+gulp.task('demo', function() {
+  const b = browserify({
     entries: './docs/demo/run.js',
     debug: true,
     transform: [[reactify, {es6: true, everything: true}]]
-  });
+  })
 
   return b.bundle()
     .pipe(source('./docs/demo/run.js'))
@@ -23,12 +22,12 @@ gulp.task('demo', function () {
     .pipe(gulp.dest('./docs/demo/writers/'));
 });
 
-gulp.task('javascript', function () {
-  var b = browserify({
+gulp.task('javascript', function() {
+  const b = browserify({
     entries: './client/run.js',
     debug: true,
     transform: [[reactify, {es6: true, everything: true}]]
-  });
+  })
 
   return b.bundle()
     .pipe(source('./client/run.js'))
@@ -42,9 +41,9 @@ gulp.task('javascript', function () {
     .pipe(gulp.dest('./www/'));
 });
 
-var less = require('gulp-less');
+const less = require('gulp-less')
 
-gulp.task('less', function () {
+gulp.task('less', function() {
   return gulp.src('./client/less/index.less')
     .pipe(less({
       // paths: [path.join(__dirname, 
@@ -53,11 +52,11 @@ gulp.task('less', function () {
     .pipe(gulp.dest('./www'))
 });
 
-gulp.task('build', ['less', 'javascript']);
+gulp.task('build', gulp.parallel('less', 'javascript'));
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
   gulp.watch('client/**/*.js', ['javascript']);
   gulp.watch('client/**/*.less', ['less']);
 });
 
-gulp.task('default', ['build', 'watch']);
+gulp.task('default', gulp.series('build', 'watch'));
