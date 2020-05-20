@@ -4,7 +4,7 @@ var yml = require('js-yaml')
 var deepAssign = require('deep-assign')
 var extend = require('extend')
 var updateAny = require('./update')
-  , updatePage = updateAny.bind(null, 'Page')
+  // , updatePage = updateAny.bind(null, 'Page')
   , update = updateAny.bind(null, 'Post')
   , deploy = require('./deploy')
 
@@ -88,9 +88,10 @@ module.exports = function (app, hexo) {
     var model = 'Post'
     var post = hexo.model('Post').get(id)
     if (!post) {
-      model = 'Page'
-      post = hexo.model('Page').get(id)
-      if (!post) return res.send(404, "Post not found")
+      // model = 'Page'
+      // post = hexo.model('Page').get(id)
+      // if (!post)
+        return res.send(404, "Post not found")
     }
     // remember old path w/o index.md
     var oldPath = post.full_source
@@ -103,12 +104,12 @@ module.exports = function (app, hexo) {
       hexo.log.d(`renamed ${model.toLowerCase()} to ${body.filename}`)
 
       // remove old folder if empty
-      if (model === 'Page' && fs.existsSync(oldPath)) {
-        if (fs.readdirSync(oldPath).length === 0) {
-          fs.rmdirSync(oldPath)
-          hexo.log.d('removed old page\'s empty directory')
-        }
-      }
+      // if (model === 'Page' && fs.existsSync(oldPath)) {
+      //   if (fs.readdirSync(oldPath).length === 0) {
+      //     fs.rmdirSync(oldPath)
+      //     hexo.log.d('removed old page\'s empty directory')
+      //   }
+      // }
 
       res.done(addIsDraft(post))
     }, hexo)
@@ -192,74 +193,74 @@ module.exports = function (app, hexo) {
     })
   });
 
-  use('pages/list', function (req, res) {
-   var page = hexo.model('Page')
-   res.done(page.toArray().map(addIsDraft));
-  });
-
-  use('pages/new', function (req, res, next) {
-    if (req.method !== 'POST') return next()
-    if (!req.body) {
-      return res.send(400, 'No page body given');
-    }
-    if (!req.body.title) {
-      return res.send(400, 'No title given');
-    }
-
-    hexo.post.create({title: req.body.title, layout: 'page', date: new Date()})
-    .error(function(err) {
-      console.error(err, err.stack)
-      return res.send(500, 'Failed to create page')
-    })
-    .then(function (file) {
-      var source = file.path.slice(hexo.source_dir.length)
-
-      hexo.source.process([source]).then(function () {
-        var page = hexo.model('Page').findOne({source: source})
-        res.done(addIsDraft(page));
-      });
-    });
-  });
-
-
-  use('pages/', function (req, res, next) {
-    var url = req.url
-    console.log('in pages', url)
-    if (url[url.length - 1] === '/') {
-      url = url.slice(0, -1)
-    }
-    var parts = url.split('/')
-    var last = parts[parts.length-1]
-    // not currently used?
-    if (last === 'remove') {
-      return remove(parts[parts.length-2], req.body, res)
-    }
-    if (last === 'rename') {
-      return remove(parts[parts.length-2], req.body, res)
-    }
-
-    var id = last
-    if (id === 'pages' || !id) return next()
-    if (req.method === 'GET') {
-      var page = hexo.model('Page').get(id)
-      if (!page) return next()
-      return res.done(addIsDraft(page))
-    }
-
-    if (!req.body) {
-      return res.send(400, 'No page body given');
-    }
-
-    updatePage(id, req.body, function (err, page) {
-      if (err) {
-        return res.send(400, err);
-      }
-      res.done({
-        page: addIsDraft(page),
-        tagsCategoriesAndMetadata: tagsCategoriesAndMetadata()
-      })
-    }, hexo);
-  });
+  // use('pages/list', function (req, res) {
+  //  var page = hexo.model('Page')
+  //  res.done(page.toArray().map(addIsDraft));
+  // });
+  //
+  // use('pages/new', function (req, res, next) {
+  //   if (req.method !== 'POST') return next()
+  //   if (!req.body) {
+  //     return res.send(400, 'No page body given');
+  //   }
+  //   if (!req.body.title) {
+  //     return res.send(400, 'No title given');
+  //   }
+  //
+  //   hexo.post.create({title: req.body.title, layout: 'page', date: new Date()})
+  //   .error(function(err) {
+  //     console.error(err, err.stack)
+  //     return res.send(500, 'Failed to create page')
+  //   })
+  //   .then(function (file) {
+  //     var source = file.path.slice(hexo.source_dir.length)
+  //
+  //     hexo.source.process([source]).then(function () {
+  //       var page = hexo.model('Page').findOne({source: source})
+  //       res.done(addIsDraft(page));
+  //     });
+  //   });
+  // });
+  //
+  //
+  // use('pages/', function (req, res, next) {
+  //   var url = req.url
+  //   console.log('in pages', url)
+  //   if (url[url.length - 1] === '/') {
+  //     url = url.slice(0, -1)
+  //   }
+  //   var parts = url.split('/')
+  //   var last = parts[parts.length-1]
+  //   // not currently used?
+  //   if (last === 'remove') {
+  //     return remove(parts[parts.length-2], req.body, res)
+  //   }
+  //   if (last === 'rename') {
+  //     return remove(parts[parts.length-2], req.body, res)
+  //   }
+  //
+  //   var id = last
+  //   if (id === 'pages' || !id) return next()
+  //   if (req.method === 'GET') {
+  //     var page = hexo.model('Page').get(id)
+  //     if (!page) return next()
+  //     return res.done(addIsDraft(page))
+  //   }
+  //
+  //   if (!req.body) {
+  //     return res.send(400, 'No page body given');
+  //   }
+  //
+  //   updatePage(id, req.body, function (err, page) {
+  //     if (err) {
+  //       return res.send(400, err);
+  //     }
+  //     res.done({
+  //       page: addIsDraft(page),
+  //       tagsCategoriesAndMetadata: tagsCategoriesAndMetadata()
+  //     })
+  //   }, hexo);
+  // });
 
   use('posts/list', function (req, res) {
    var post = hexo.model('Post')

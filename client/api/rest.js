@@ -39,13 +39,13 @@ module.exports = function (baseUrl) {
       return get('/posts/' + id)
     },
     newPost: (title) => post('/posts/new', {title: title}),
-    pages: () => get('/pages/list'),
-    page: (id, data) => {
-      if (data) return post('/pages/' + id, data)
-      return get('/pages/' + id)
-    },
+    // pages: () => get('/pages/list'),
+    // page: (id, data) => {
+    //   if (data) return post('/pages/' + id, data)
+    //   return get('/pages/' + id)
+    // },
     deploy: (message) => post('/deploy', {message: message}),
-    newPage: (title) => post('/pages/new', {title: title}),
+    // newPage: (title) => post('/pages/new', {title: title}),
     uploadImage: (data, filename) => post('/images/upload', {data: data, filename: filename}),
     remove: (id) => post('/posts/' + id + '/remove'),
     publish: (id) => post('/posts/' + id + '/publish'),

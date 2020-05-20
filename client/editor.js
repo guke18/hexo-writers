@@ -70,31 +70,31 @@ var Editor = React.createClass({
           className='editor_title'
           value={this.props.title}
           onChange={this.handleChangeTitle}/>
-        {!this.props.isPage && <ConfigDropper
-          post={this.props.post}
-          tagsCategoriesAndMetadata={this.props.tagsCategoriesAndMetadata}
-          onChange={this.props.onChange}/>}
-        {!this.props.isPage && (this.props.isDraft ?
-          <button className="editor_publish" onClick={this.props.onPublish}>
-            Publish
-          </button> :
-          <button className="editor_unpublish" onClick={this.props.onUnpublish}>
-            Unpublish
-          </button>)}
-          {!this.props.isPage && (this.props.isDraft ?
-          <button className="editor_remove" title="Remove"
-                  onClick={this.props.onRemove}>
-            <i className="fa fa-trash-o" aria-hidden="true"/>
-          </button> :
-          <button className="editor_remove" title="Can't Remove Published Post"
-                  onClick={this.props.onRemove} disabled>
-            <i className="fa fa-trash-o" aria-hidden="true"/>
-          </button>)}
-          {!this.props.isPage &&
-          <button className="editor_checkGrammar" title="Check for Writing Improvements"
-                  onClick={this.onCheckGrammar}>
-            <i className="fa fa-check-circle-o"/>
-          </button>}
+        {/*{!this.props.isPage && <ConfigDropper*/}
+        {/*  post={this.props.post}*/}
+        {/*  tagsCategoriesAndMetadata={this.props.tagsCategoriesAndMetadata}*/}
+        {/*  onChange={this.props.onChange}/>}*/}
+        {/*{!this.props.isPage && (this.props.isDraft ?*/}
+        {/*  <button className="editor_publish" onClick={this.props.onPublish}>*/}
+        {/*    Publish*/}
+        {/*  </button> :*/}
+        {/*  <button className="editor_unpublish" onClick={this.props.onUnpublish}>*/}
+        {/*    Unpublish*/}
+        {/*  </button>)}*/}
+        {/*  {!this.props.isPage && (this.props.isDraft ?*/}
+        {/*  <button className="editor_remove" title="Remove"*/}
+        {/*          onClick={this.props.onRemove}>*/}
+        {/*    <i className="fa fa-trash-o" aria-hidden="true"/>*/}
+        {/*  </button> :*/}
+        {/*  <button className="editor_remove" title="Can't Remove Published Post"*/}
+        {/*          onClick={this.props.onRemove} disabled>*/}
+        {/*    <i className="fa fa-trash-o" aria-hidden="true"/>*/}
+        {/*  </button>)}*/}
+        {/*  {!this.props.isPage &&*/}
+        {/*  <button className="editor_checkGrammar" title="Check for Writing Improvements"*/}
+        {/*          onClick={this.onCheckGrammar}>*/}
+        {/*    <i className="fa fa-check-circle-o"/>*/}
+        {/*  </button>}*/}
       </div>
       <div className="editor_main">
         <div className="editor_edit">
