@@ -19,7 +19,7 @@ module.exports = function (app, hexo) {
   app.use(session({
       resave: false,
       saveUninitialized: false,
-      secret: hexo.config.admin.secret
+      secret: hexo.config.writers.secret
   }));
   app.use(hexo.config.root + 'write', auth(new authStrategy(hexo)));
   app.use(hexo.config.root + 'write/login', function (req, res) {

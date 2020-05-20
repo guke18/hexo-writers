@@ -19,7 +19,7 @@ gulp.task('demo', function() {
     .pipe(source('./docs/demo/run.js'))
     .pipe(buffer())
     .pipe(rename('bundle.js'))
-    .pipe(gulp.dest('./docs/demo/writers/'));
+    .pipe(gulp.dest('./docs/demo/write/'));
 });
 
 gulp.task('javascript', function() {
@@ -55,8 +55,8 @@ gulp.task('less', function() {
 gulp.task('build', gulp.parallel('less', 'javascript'));
 
 gulp.task('watch', function() {
-  gulp.watch('client/**/*.js', ['javascript']);
-  gulp.watch('client/**/*.less', ['less']);
+  gulp.watch('client/**/*.js', gulp.series('javascript'));
+  gulp.watch('client/**/*.less', gulp.series('less'));
 });
 
 gulp.task('default', gulp.series('build', 'watch'));
