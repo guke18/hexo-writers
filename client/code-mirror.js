@@ -8,16 +8,16 @@ var CodeMirror = React.createClass({
   propTypes: {
     onScroll: PT.func,
     forceLineNumbers: PT.bool,
-    adminSettings: PT.object
+    writersSettings: PT.object
   },
 
   componentDidUpdate: function (prevProps) {
     if (prevProps.initialValue !== this.props.initialValue) {
       this.cm.setValue(this.props.initialValue)
     }
-    // on forcing line numbers, set or unset linenumbers if not set in adminSettings
+    // on forcing line numbers, set or unset linenumbers if not set in writersSettings
     if (prevProps.forceLineNumbers !== this.props.forceLineNumbers) {
-      if (!(this.props.adminSettings.editor || {}).lineNumbers) {
+      if (!(this.props.writersSettings.editor || {}).lineNumbers) {
         this.cm.setOption('lineNumbers', this.props.forceLineNumbers);
       }
     }
@@ -32,8 +32,8 @@ var CodeMirror = React.createClass({
       mode: 'markdown',
       lineWrapping: true,
     }
-    for (var key in this.props.adminSettings.editor) {
-      editorSettings[key] = this.props.adminSettings.editor[key]
+    for (var key in this.props.writersSettings.editor) {
+      editorSettings[key] = this.props.writersSettings.editor[key]
     }
 
     this.cm = CM(this.getDOMNode(), editorSettings);
@@ -76,7 +76,7 @@ var CodeMirror = React.createClass({
     };
     if (!blob) return
 
-    var settings = this.props.adminSettings
+    var settings = this.props.writersSettings
     var reader = new FileReader();
     reader.onload = (event) => {
       var filename = null;

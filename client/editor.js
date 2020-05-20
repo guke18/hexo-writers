@@ -23,12 +23,12 @@ var Editor = React.createClass({
     onPublish: PT.func.isRequired,
     onUnpublish: PT.func.isRequired,
     tagsCategoriesAndMetadata: PT.object,
-    adminSettings: PT.object
+    writersSettings: PT.object
   },
 
   getInitialState: function() {
     var url = window.location.pathname.split('/')
-    var rootPath = url.slice(0, url.indexOf('admin')).join('/')
+    var rootPath = url.slice(0, url.indexOf('write')).join('/')
     return {
       previewLink: path.join(rootPath, this.props.post.path),
       checkingGrammar: false,
@@ -112,7 +112,7 @@ var Editor = React.createClass({
             initialValue={this.props.raw}
             onChange={this.props.onChangeContent}
             forceLineNumbers={this.state.checkingGrammar}
-            adminSettings={this.props.adminSettings} />
+            writersSettings={this.props.writersSettings} />
         </div>
         <div className="editor_display">
           <div className="editor_display-header">

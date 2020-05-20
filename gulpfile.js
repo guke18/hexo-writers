@@ -20,7 +20,7 @@ gulp.task('demo', function () {
     .pipe(source('./docs/demo/run.js'))
     .pipe(buffer())
     .pipe(rename('bundle.js'))
-    .pipe(gulp.dest('./docs/demo/admin/'));
+    .pipe(gulp.dest('./docs/demo/writers/'));
 });
 
 gulp.task('javascript', function () {

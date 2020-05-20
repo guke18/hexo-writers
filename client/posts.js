@@ -54,7 +54,7 @@ var Posts = React.createClass({
     }
     var current = this.state.posts[this.state.selected] || {}
     var url = window.location.href.replace(/^.*\/\/[^\/]+/, '').split('/')
-    var rootPath = url.slice(0, url.indexOf('admin')).join('/')
+    var rootPath = url.slice(0, url.indexOf('write')).join('/')
     return <div className="posts">
       <ul className='posts_list'>
         <NewPost onNew={this._onNew}/>

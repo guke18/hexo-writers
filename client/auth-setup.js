@@ -2,7 +2,7 @@
 var React = require('react/addons')
 var bcrypt = require('bcrypt-nodejs')
 
-var AdminYaml = React.createClass({
+var WritersYaml = React.createClass({
   getInitialState: function() {
     return {
       passwordHash: '$2a$10$L.XAIqIWgTc5S1zpvV3MEu7/rH34p4Is/nq824smv8EZ3lIPCp1su'
@@ -19,16 +19,16 @@ var AdminYaml = React.createClass({
 
   render: function() {
 
-    var adminYaml = [
-      '# hexo-admin authentification',
-      'admin:',
-      '  username: ' + this.props.username,
+    var writersYaml = [
+      '# hexo-writers authentification',
+      'writers:',
+      '  username: ' + this.state.passwordHash,
       '  password_hash: ' + this.state.passwordHash,
       '  secret: ' + this.props.secret
     ].join('\n')
     return (
       <pre>
-        {adminYaml}
+        {writersYaml}
       </pre>
     )
   }
@@ -60,7 +60,7 @@ var AuthSetup = React.createClass({
       <div className='authSetup'>
         <h1>Authentification Setup</h1>
         <p>
-          You can secure hexo-admin with a password by adding a section to your&nbsp;
+          You can secure hexo-writers with a password by adding a section to your&nbsp;
           <code>_config.yml</code>. This page is here to easily get it setup up.
           Simply fill in the following fields and copy and paste the generated
           text section into your config file.
@@ -86,12 +86,12 @@ var AuthSetup = React.createClass({
                  onChange={this.handleSecretChange}
                  defaultValue={this.state.secret}></input>
         </div>
-        <h2>Admin Config Section</h2>
+        <h2>Writers Config Section</h2>
         <p>
           Copy this into your <code>_config.yml</code>, and restart Hexo. Now you'll
           be protected with a password!
         </p>
-        <AdminYaml username={this.state.username}
+        <WritersYaml username={this.state.username}
                    password={this.state.password}
                    secret={this.state.secret}/>
       </div>

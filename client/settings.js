@@ -56,10 +56,10 @@ var Settings = React.createClass({
       <div className="settings" style={divStyle}>
         <h1>Settings</h1>
         <p>
-          Set various settings for your admin panel and editor.
+          Set various settings for your writers' panel and editor.
         </p>
         <p>
-          Hexo admin can be secured with a password.
+          Hexo writers can be secured with a password.
           {' '}<Link to='auth-setup'>Setup authentification here.</Link>
         </p>
         <hr />
@@ -71,7 +71,7 @@ var Settings = React.createClass({
 
         <h2>Image Pasting Settings</h2>
         <p>
-          Hexo-admin allows you to paste images you copy from the web or elsewhere directly
+          Hexo-writers allows you to paste images you copy from the web or elsewhere directly
           into the editor. Decide how you'd like to handle the pasted images.
         </p>
         {AskImageFilename}

@@ -163,7 +163,7 @@ var Post = React.createClass({
       onUnpublish: this.handleUnpublish,
       onRemove: this.handleRemove,
       tagsCategoriesAndMetadata: this.state.tagsCategoriesAndMetadata,
-      adminSettings: settings
+      writersSettings: settings
     })
   }
 });

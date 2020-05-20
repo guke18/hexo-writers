@@ -76,10 +76,10 @@ metadata:
 You can provide default values that will be used to initialize the metadata
 of a new post. These can be either primitives or arrays.
 
-### 6. Contribute to the original!
+### 6. Contribute!
 - let me know how it can be improved in the [github
-  issues](https://github.com/jaredly/hexo-admin/issues)
-- [fork](https://github.com/jaredly/hexo-admin) and pull-request
+  issues](https://github.com/musicin3d/hexo-writers/issues)
+- [fork](https://github.com/musicin3d/hexo-writers) and pull-request
 
 # Credits
 
@@ -87,3 +87,5 @@ original built with ❤ by [Jared Forsyth](http://jaredly.github.io)
 ([@jaredforsyth](http://twitter.com/jaredforsyth)) using
 [react](http://facebook.github.io/react), [browserify](
 http://browserify.org), and [less](http://lesscss.org).
+
+modified for writers by musicin3d

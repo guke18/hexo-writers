@@ -32,13 +32,13 @@ module.exports = function (app, hexo) {
     }
   }
 
-  // reads admin panel settings from _admin-config.yml
+  // reads writers panel settings from _writers-config.yml
   // or writes it if it does not exist
   function getSettings() {
-    var path = hexo.base_dir + '_admin-config.yml'
+    var path = hexo.base_dir + '_writers-config.yml'
     if (!fs.existsSync(path)) {
-      hexo.log.d('admin config not found, creating one')
-      fs.writeFile(hexo.base_dir+'_admin-config.yml', '')
+      hexo.log.d('writers config not found, creating one')
+      fs.writeFile(hexo.base_dir+'_writers-config.yml', '')
       return {}
     } else {
       var settings = yml.safeLoad(fs.readFileSync(path))
@@ -115,7 +115,7 @@ module.exports = function (app, hexo) {
   }
 
   var use = function (path, fn) {
-    app.use(hexo.config.root + 'admin/api/' + path, function (req, res) {
+    app.use(hexo.config.root + 'write/api/' + path, function (req, res) {
       var done = function (val) {
         if (!val) {
           res.statusCode = 204
@@ -167,7 +167,7 @@ module.exports = function (app, hexo) {
     var name = req.body.name
     var value = req.body.value
 
-    // no addOptions means we just want to set a single value in the admin options
+    // no addOptions means we just want to set a single value in the writer options
     // usually for text-based option setting
     var addedOptsExist = !!req.body.addedOptions
 
@@ -185,7 +185,7 @@ module.exports = function (app, hexo) {
     }
     hexo.log.d('set', name, '=', value, 'with', JSON.stringify(addedOptions))
 
-    fs.writeFileSync(hexo.base_dir + '_admin-config.yml', yml.safeDump(settings))
+    fs.writeFileSync(hexo.base_dir + '_writers-config.yml', yml.safeDump(settings))
     res.done({
       updated: 'Successfully updated ' + name + ' = ' + value,
       settings: settings
@@ -407,11 +407,11 @@ module.exports = function (app, hexo) {
 
   use('deploy', function(req, res, next) {
     if (req.method !== 'POST') return next()
-    if (!hexo.config.admin || !hexo.config.admin.deployCommand) {
-      return res.done({error: 'Config value "admin.deployCommand" not found'});
+    if (!hexo.config.writers || !hexo.config.writers.deployCommand) {
+      return res.done({error: 'Config value "writers.deployCommand" not found'});
     }
     try {
-      deploy(hexo.config.admin.deployCommand, req.body.message, function(err, result) {
+      deploy(hexo.config.writers.deployCommand, req.body.message, function(err, result) {
         console.log('res', err, result);
         if (err) {
           return res.done({error: err.message || err})

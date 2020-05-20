@@ -47,7 +47,7 @@ var Pages = React.createClass({
     }
     var current = this.state.pages[this.state.selected] || {}
     var url = window.location.href.replace(/^.*\/\/[^\/]+/, '').split('/')
-    var rootPath = url.slice(0, url.indexOf('admin')).join('/')
+    var rootPath = url.slice(0, url.indexOf('write')).join('/')
     return <div className="posts">
       <ul className='posts_list'>
         <Newpage onNew={this._onNew}/>

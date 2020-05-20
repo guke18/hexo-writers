@@ -1,8 +1,8 @@
 /**
- * This enables authentication for the admin pages.
- * All paths starting with /admin/ are protected by cookie-based login, where
- * username must match `admin.username` and the password's bcrypt hash must match
- * `admin.password_hash`.
+ * This enables authentication for the writers pages.
+ * All paths starting with /write/ are protected by cookie-based login, where
+ * username must match a key in `writers.*` and the password's bcrypt hash must match
+ * the value at that key.
  */
 
 var cookieParser = require('cookie-parser')
@@ -21,12 +21,12 @@ module.exports = function (app, hexo) {
       saveUninitialized: false,
       secret: hexo.config.admin.secret
   }));
-  app.use(hexo.config.root + 'admin', auth(new authStrategy(hexo)));
-  app.use(hexo.config.root + 'admin/login', function (req, res) {
+  app.use(hexo.config.root + 'write', auth(new authStrategy(hexo)));
+  app.use(hexo.config.root + 'write/login', function (req, res) {
       if (req.method === 'POST') {
-          req.authenticate(['adminAuth'], function(error, done) {
+          req.authenticate(['writersAuth'], function(error, done) {
               if (done) {
-                  res.writeHead(302, { 'Location':  hexo.config.root + "admin/" });
+                  res.writeHead(302, { 'Location':  hexo.config.root + "write/" });
                   res.end();
               }
           });
@@ -34,7 +34,7 @@ module.exports = function (app, hexo) {
           serveStatic(path.join(__dirname, '../www', 'login'))(req, res);
       }
   });
-  app.use(hexo.config.root + 'admin/', function (req, res, next) {
-      req.authenticate(['adminAuth'], next)
+  app.use(hexo.config.root + 'write/', function (req, res, next) {
+      req.authenticate(['writersAuth'], next)
   });
 }

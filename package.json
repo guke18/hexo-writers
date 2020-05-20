@@ -1,27 +1,26 @@
 {
-  "name": "hexo-admin",
+  "name": "@musicin3d/hexo-writers",
   "version": "2.3.0",
-  "description": "Adds an admin section to the hexo server",
+  "description": "Adds a writers' section to the hexo server",
   "main": "index.js",
   "scripts": {
     "prepublish": "gulp build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jaredly/hexo-admin.git"
+    "url": "https://github.com/musicin3d/hexo-writers.git"
   },
   "keywords": [
     "hexo",
     "admin",
+    "writers",
     "dashboard",
     "plugin"
   ],
-  "author": "Jared Forsyth <jared@jaredforsyth.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jaredly/hexo-admin/issues"
+    "url": "https://github.com/musicin3d/hexo-writers/issues"
   },
-  "homepage": "http://jaredly.github.io/hexo-admin/",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.5.0",
