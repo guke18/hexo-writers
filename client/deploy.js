@@ -60,17 +60,17 @@ var Deploy = React.createClass({
     return (
       <div className="deploy" style={divStyle}>
         <p>
-          Type a message here and hit `deploy` to run your deploy script.
+          Type a message here and hit "submit" to request approval of your changes.
         </p>
         <form className='deploy_form' onSubmit={this.handleSubmit}>
           <input
             type="text"
             className="deploy_message"
             value={this.state.message}
-            placeholder="Deploy/commit message"
+            placeholder="Summary of changes"
             onChange={e => this.setState({message: e.target.value})}
           />
-          <input type="submit" value="Deploy" />
+          <input type="submit" value="Submit" />
         </form>
         {body}
       </div>
