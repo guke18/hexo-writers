@@ -62,6 +62,31 @@ body > div:first-of-type {
   }
 }
 
+.app_username{
+  font-weight: bold;
+}
+
+.app_logout{
+  font-size: small;
+  text-decoration: none;
+  &:hover{
+    color: @accentp5;
+  }
+}
+
+.app_nav_right {
+  float: right;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-bottom: .3em;
+  box-sizing: border-box;
+  margin-right: 10px;
+  &>*{
+    margin-left: 20px;
+  }
+}
+
 .app_main {
   display: flex;
   flex: 1 1 auto;

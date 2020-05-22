@@ -424,4 +424,8 @@ module.exports = function (app, hexo) {
       res.done({error: e.message})
     }
   });
+
+  use('username', function(req, res, next){
+      res.done({username: req.getAuthDetails().user.name})
+  })
 }

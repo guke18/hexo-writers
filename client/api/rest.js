@@ -59,6 +59,7 @@ module.exports = function (baseUrl) {
       name: name,
       value: value,
       addedOptions: addedOptions
-    })
+    }),
+    username: ()=> get('/username')
   }
 }
