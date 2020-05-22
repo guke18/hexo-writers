@@ -20,10 +20,10 @@ var WritersYaml = React.createClass({
   render: function() {
 
     var writersYaml = [
-      '# hexo-writers authentification',
+      '# hexo-writers authentication',
       'writers:',
-      '  username: ' + this.state.passwordHash,
-      '  password_hash: ' + this.state.passwordHash,
+      '  credentials:',
+      '    ' + this.props.username + ': ' + this.state.passwordHash,
       '  secret: ' + this.props.secret
     ].join('\n')
     return (

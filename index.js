@@ -1,24 +1,28 @@
-var serveStatic = require('serve-static'),
-  bodyParser = require('body-parser'),
-  path = require('path'),
-  api = require('./api');
+const serveStatic = require('serve-static'),
+    bodyParser = require('body-parser'),
+    path = require('path'),
+    api = require('./api')
 
-var passwordProtected = hexo.config.writers && hexo.config.writers.username;
+let passwordProtected = hexo.config.writers && hexo.config.writers.credentials
 
 // verify that correct config options are set.
 if (passwordProtected) {
-  if (!hexo.config.writers.password_hash) {
-    console.error('[Hexo Writers]: config writers.password_hash is requred for authentication');
+  const usernames = Object.keys(hexo.config.writers.credentials)
+  if(!usernames.length){
+    console.error('[Hexo Writers]: config writers.users must have at least one user for authentication');
     passwordProtected = false;
-  } else if (hexo.config.writers.password_hash.length <= 32) {
-    throw new Error('[Hexo Writers]: the provided password_hash looks like an md5 hash -- hexo-writers has switched to use bcrypt; see the Readme for more info.')
   }
-
+  else {
+    for(let username of usernames){
+      if (hexo.config.writers.credentials[username].length <= 32){
+        throw new Error('[Hexo Writers]: the password for '+username+' looks like an md5 hash -- hexo-writers uses bcrypt; see the Readme for more info.')
+      }
+    }
+  }
   if (!hexo.config.writers.secret) {
     console.error('[Hexo Writers]: config writers.secret is requred for authentication');
     passwordProtected = false;
   }
-
 }
 
 hexo.extend.filter.register('server_middleware', function(app) {

@@ -50,7 +50,10 @@ protection. To enable this, you just add a few config variables to your hexo
 
 ```
 writers:
-  myUsername: be121740b_password_hash_13fa1f107ca1
+  credentials:
+    alice: be121740b_password_hash_13fa1f107ca1
+    bob: be121740b_password_hash_13fa1f107ca1
+    charlie: be121740b_password_hash_13fa1f107ca1
   secret: a secret something
 ```
 
