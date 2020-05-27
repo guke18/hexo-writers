@@ -1,4 +1,5 @@
-
+var DataFetcher = require('./data-fetcher');
+var api = require('./api');
 var React = require('react/addons')
 var Link = require('react-router').Link
 var SettingsCheckbox = require('./settings-checkbox')
@@ -9,6 +10,13 @@ var divStyle = {
 };
 
 var Settings = React.createClass({
+
+  mixins: [DataFetcher((params) => {
+    return {
+      settings: api.settings()
+    }
+  })],
+
   getInitialState: function() {
     return {};
   },
@@ -52,15 +60,17 @@ var Settings = React.createClass({
       label: 'Image filename prefix'
     });
 
-    return (
+      var DisableSettings = SettingsCheckbox({
+          name: 'disableSettings',
+          label: 'Hide all settings except for editor settings',
+          style: {width: '425px', display: 'inline-block'}
+      })
+
+      return (
       <div className="settings" style={divStyle}>
         <h1>Settings</h1>
         <p>
           Set various settings for your writers' panel and editor.
-        </p>
-        <p>
-          Hexo writers can be secured with a password.
-          {' '}<Link to='auth-setup'>Setup authentification here.</Link>
         </p>
         <hr />
 
@@ -69,15 +79,28 @@ var Settings = React.createClass({
         {SpellCheck}
         <hr />
 
-        <h2>Image Pasting Settings</h2>
-        <p>
-          Hexo-writers allows you to paste images you copy from the web or elsewhere directly
-          into the editor. Decide how you'd like to handle the pasted images.
-        </p>
-        {AskImageFilename}
-        {OverwriteImages}
-        {ImagePath}
-        {ImagePrefix}
+        {this.state.settings && !this.state.settings.options.disableSettings && (
+            <div>
+              <h2>Image Pasting Settings</h2>
+              <p>
+                Hexo-writers allows you to paste images you copy from the web or elsewhere directly
+                into the editor. Decide how you'd like to handle the pasted images.
+              </p>
+              {AskImageFilename}
+              {OverwriteImages}
+              {ImagePath}
+              {ImagePrefix}
+              <hr />
+
+              <h2>Advanced</h2>
+              {DisableSettings}
+              <p>
+                Hexo writers can be secured with a password.
+                {' '}<Link to='auth-setup'>Setup authentification here.</Link>
+              </p>
+            </div>
+        )}
+
       </div>
     );
   }
