@@ -1,6 +1,6 @@
 {
   "name": "@musicin3d/hexo-writers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Adds a writers' section to the hexo server",
   "main": "index.js",
   "scripts": {
