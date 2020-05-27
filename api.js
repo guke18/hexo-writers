@@ -426,6 +426,7 @@ module.exports = function (app, hexo) {
   });
 
   use('username', function(req, res, next){
-      res.done({username: req.getAuthDetails().user.name})
+      if(req.getAuthDetails)  res.done({username: req.getAuthDetails().user.name})
+      else                    res.done({})
   })
 }
